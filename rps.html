@@ -15,11 +15,20 @@ display:flex;
 justify-content:center;
 align-items:center;
 }
+
+.Player1,
+.Player2{
+display:flex;
+justify-content:center;
+align-items:center;
+}
+
+
 .data1{
 text-align:center;
 }
 
-.data2{
+.data2, .whowin{
 text-align:center;
 }
 
@@ -139,7 +148,8 @@ text-align:center;
 
 <div class="row">
 <!--Player 1 -->
-<div class="jumbotron col-5">
+<div class="jumbotron col-5 Player1">
+<!--
 <form class ="player-one">
 <div class="form-group">
 <lable for="player1">Player One Name:</lable>
@@ -148,22 +158,24 @@ text-align:center;
 
 <div class="form-group">
 <div>Pick Rock, Paper, or Scissors</div>
-<!--<input type="text" class="form-control" id="p1choice">-->
-<button type="submit" class="btn btn-primary choice1" value="r" id="p1choice">Rock</button>
-<button type="submit" class="btn btn-primary choice1" value="p" id="p1choice">Paper</button>
+<button type="submit" class="btn btn-primary choice1 mr-2" value="r" id="p1choice">Rock</button>
+<button type="submit" class="btn btn-primary choice1 mr-2" value="p" id="p1choice">Paper</button>
 <button type="submit" class="btn btn-primary choice1" value="s" id="p1choice">Scissor</button>
 </div>
-
 <button type="submit" class="btn btn-primary p1btn">Submit</button>
-
 </form>
+-->
+<button type="button" class="btn btn-primary pickP1">Player 1</button>
 </div>
+
+<!-- VS button -->
 <div class="col-2 vs-box">
 <button type="submit" class="btn btn-primary vs">VS</button>
 </div>
 
 <!--Player 2 -->
-<div class="jumbotron col-5">
+<div class="jumbotron col-5 Player2">
+<!--
 <form class ="player-two">
 <div class="form-group">
 <lable for="player2">Player Two Name:</lable>
@@ -172,23 +184,25 @@ text-align:center;
 
 <div class="form-group">
 <div>Pick Rock, Paper, or Scissors</div>
-<!--<input type="text" class="form-control" id="p2choice">-->
-<button type="submit" class="btn btn-primary choice2" value="r" id="p2choice">Rock</button>
-<button type="submit" class="btn btn-primary choice2" value="p" id="p2choice">Paper</button>
+<button type="submit" class="btn btn-primary choice2 mr-2" value="r" id="p2choice">Rock</button>
+<button type="submit" class="btn btn-primary choice2 mr-2" value="p" id="p2choice">Paper</button>
 <button type="submit" class="btn btn-primary choice2" value="s" id="p2choice">Scissor</button>
 </div>
-
 <button type="submit" class="btn btn-primary p2btn">Submit</button>
-
 </form>
+-->
+<button type="button" class="btn btn-primary pickP2">Player 2</button>
 </div>
+
+
 </div>
 
 <div class="row">
 <!--Show data Player1 -->
-<div class="data1 col-6"></div>
+<div class="data1 col-5"></div>
+<div class="whowin col-2 h5"></div>
 <!--Show data Player2 -->
-<div class="data2 col-6"></div>
+<div class="data2 col-5"></div>
 </div>
 
 <!--Chat Box -->
@@ -250,11 +264,11 @@ function refresh(){
 database.ref().remove();
 
 
-tie = 0;
-p1win = 0;
-p1loss = 0;
-p2win = 0;
-p2loss = 0;
+//tie = 0;
+//p1win = 0;
+//p1loss = 0;
+//p2win = 0;
+//p2loss = 0;
 };
 //END
 
@@ -267,7 +281,33 @@ function closeForm() {
   document.getElementById("myForm").style.display = "none";
 }
 
+/////////////////////////////////////////////////////////
+//create player1 and player2
+$(document).on("click", ".pickP1", function(event){
+event.preventDefault();
+var bigDivP1 = $('<form class ="player-one"><div class="form-group"><lable for="player1">Player One Name:</lable><input type="text" class="form-control" id="player1"></div><div class="form-group"><div>Pick Rock, Paper, or Scissors</div><button type="submit" class="btn btn-primary choice1 mr-2" value="r" id="p1choice">Rock</button><button type="submit" class="btn btn-primary choice1 mr-2" value="p" id="p1choice">Paper</button><button type="submit" class="btn btn-primary choice1" value="s" id="p1choice">Scissor</button></div><button type="submit" class="btn btn-primary p1btn">Submit</button></form>')
 
+$(".Player1").html(bigDivP1);
+
+//$(document).off("click", ".pickP2")
+});
+//END
+
+$(document).on("click", ".pickP2", function(event){
+event.preventDefault();
+var bigDivP2 = $('<form class ="player-two"><div class="form-group"><lable for="player2">Player Two Name:</lable><input type="text" class="form-control" id="player2"></div><div class="form-group"><div>Pick Rock, Paper, or Scissors</div><button type="submit" class="btn btn-primary choice2 mr-2" value="r" id="p2choice">Rock</button><button type="submit" class="btn btn-primary choice2 mr-2" value="p" id="p2choice">Paper</button><button type="submit" class="btn btn-primary choice2" value="s" id="p2choice">Scissor</button></div><button type="submit" class="btn btn-primary p2btn">Submit</button></form>')
+
+$(".Player2").html(bigDivP2);
+
+//$(document).off("click", ".pickP1")
+});
+//END
+
+
+//////////////////////////////////////////////////////
+
+
+var p1Name;
 var p1Choice = "";
 $(document).on("click", ".choice1", function(event){
 event.preventDefault();
@@ -278,26 +318,33 @@ event.preventDefault();
 $(document).on("click", ".p1btn", function(event){
 event.preventDefault();
 
+if( p1Choice !== ""){
 console.log("Player 1 selected");
 
-var p1Name = $("#player1").val().trim();
+p1Name = $("#player1").val().trim();
 //var p1Choice = $("#p1choice").val().trim();
 
 player1 = {
 p1Name:p1Name,
 p1Choice:p1Choice,
-tie:tie,
-win:p1win,
-loss:p1loss
+//tie:tie,
+//win:p1win,
+//loss:p1loss
 }
 
 database.ref("/player1").set(player1);
 //clear out input box
 //$("#player1").val("");
+} else{ 
+console.log("Please pick either Rock, Paper or Scissors")
+$(".whowin").html("Please pick either Rock, Paper or Scissors");
+}
+
 });
 //END
 
 var p2Choice = "";
+var p2Name;
 $(document).on("click", ".choice2", function(event){
 event.preventDefault();
 	p2Choice = $(this).attr("value")
@@ -307,22 +354,28 @@ event.preventDefault();
 $(document).on("click", ".p2btn", function(event){
 event.preventDefault();
 
+if( p2Choice !== ""){
 console.log("Player 2 selected");
-var p2Name = $("#player2").val().trim();
+p2Name = $("#player2").val().trim();
 //var p2Choice = $("#p2choice").val().trim();
 
 player2 = {
 p2Name:p2Name,
 p2Choice:p2Choice,
-tie:tie,
-win:p2win,
-loss:p2loss
+//tie:tie,
+//win:p2win,
+//loss:p2loss
 }
 
 database.ref("/player2").set(player2);
 
 //clear out input box
 //$("#player2").val("");
+}else{ 
+console.log("Please pick either Rock, Paper or Scissors")
+$(".whowin").html("Please pick either Rock, Paper or Scissors");
+}
+
 });
 //END
 var keys;
@@ -370,54 +423,85 @@ p2Div.append(p2nameDiv).append(p2winDiv).append(p2lossDiv).append(p2tieDiv)
 $(".data2").html(p2Div)
 }
 
-//chat message print out 
-keys = snapshot.child("/chatmessage/m"+count).val()
-//if (keys !== null){
-//var chatprintout = $("<div>"+keys+"</div>")
-//$(".text-display").append(chatprintout);
-//}
+//console.log(snapshot.child("player1/tie").val());
+
+
+if (snapshot.child("player1").exists()) {
+if (snapshot.child("player1/tie").exists()){
+tie = snapshot.child("player1/tie").val();
+}
+if (snapshot.child("player1/win").exists()){
+p1win = snapshot.child("player1/win").val();
+}
+if (snapshot.child("player1/loss").exists()){
+p1loss = snapshot.child("player1/loss").val();
+}
+if (snapshot.child("player1/p1Name").exists()){
+p1Name = snapshot.child("player1/p1Name").val();
+}
+}
+
+if (snapshot.child("player2").exists()) {
+if (snapshot.child("player2/tie").exists()){
+tie = snapshot.child("player2/tie").val();
+}
+if (snapshot.child("player2/win").exists()){
+p2win = snapshot.child("player2/win").val();
+}
+if (snapshot.child("player2/loss").exists()){
+p2loss = snapshot.child("player2/loss").val();
+}
+if (snapshot.child("player2/p2Name").exists()){
+p2Name = snapshot.child("player2/p2Name").val();
+}
+}
+
 
 })
 };
 //END
 
-
+function chatmessage(){
+database.ref("/chatmessage/").on("child_added", function(snapshot) {
 //chat message print out 
-function chatPrint(){
-//console.log(keys)
-//var keys = database.ref().child("/chatmessage/m"+count).value
+var idMessArr = snapshot.val()
+//keys = Object.values(idMessArr)
+//console.log(idMessArr)
 if (keys !== null){
-var chatprintout = $("<div id='chatprintout'>"+keys+"</div>")
+//var chatprintout = $("<div id='chatprintout'>"+keys[keys.length-1]+"</div>")
+var chatprintout = $("<div id='chatprintout'>"+ idMessArr +"</div>")
+var chatDiv = $("<div class='chatDiv'></div>")
+//chatDiv.prepend(chatprintout)
+//$(".text-display").prepend(chatDiv);
 $(".text-display").prepend(chatprintout);
-
 }
+})
 };
 //END
+chat();
+chatmessage();
 
 
-var count = 0;
+
 function chat(){
 $(document).on("click", ".send", function(event){
 var chatmess = $("#message").val().trim()
 //console.log(chatmess);
 
-count++;
-database.ref().child("/chatmessage/m"+count).set(chatmess);
-
-chatPrint();
+database.ref().child("/chatmessage/").push(chatmess);
 
 //clear out the chat box
 $("#message").val("");
 })
 };
 //END
-chat();
 
 function rps(){
 if ((p1C !== null) && (p2C!== null)){
 
 if (p1C === p2C){
 tie++;
+$(".whowin").text("Tie!")
 database.ref().child("player1/p1Choice/").remove();
 database.ref().child("player2/p2Choice/").remove();
 } else if 	((p1C === 'r' && p2C === 's') || 
@@ -425,11 +509,13 @@ database.ref().child("player2/p2Choice/").remove();
 		(p1C === 's' && p2C === 'p')){
 p1win++;
 p2loss++;
+$(".whowin").text("Player 1 win!")
 database.ref().child("player1/p1Choice/").remove();
 database.ref().child("player2/p2Choice/").remove();
 } else {
 p2win++;
 p1loss++;
+$(".whowin").text("Player 2 win!")
 database.ref().child("player1/p1Choice/").remove();
 database.ref().child("player2/p2Choice/").remove();
 }
@@ -446,6 +532,8 @@ function vs(){
 $(document).on("click", ".vs", function(event){
 event.preventDefault();
 rps();
+
+
 //update firebase after compare
 database.ref("/player1/tie").set(tie);
 database.ref("/player2/tie").set(tie);
@@ -453,6 +541,7 @@ database.ref("/player1/win").set(p1win);
 database.ref("/player2/win").set(p2win);
 database.ref("/player1/loss").set(p1loss);
 database.ref("/player2/loss").set(p2loss);
+
 });
 }
 //END
@@ -463,6 +552,7 @@ database.ref("player1/").remove();
 database.ref("player2/").remove();
 $(".data1").html("");
 $(".data2").html("");
+$(".whowin").html("");
 tie = 0;
 p1win = 0;
 p1loss = 0;
