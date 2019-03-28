@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>RPS-Multiplayer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="assests/css/style.css" type="text/css">
+
+
+</head>
+
+<body>
+
+    <!-- HTML start here -->
+    <!--Title Header -->
+    <div class="jumbotron container title">
+        <h1>RPS-Multiplayer</h1>
+        <h4>Rock-Paper-Scissors</h4>
+    </div>
+
+    <div class="row">
+        <!--Player 1 -->
+        <div class="jumbotron col-5 Player1">
+            <!--
+<form class ="player-one">
+<div class="form-group">
+<lable for="player1">Player One Name:</lable>
+<input type="text" class="form-control" id="player1">
+</div>
+
+<div class="form-group">
+<div>Pick Rock, Paper, or Scissors</div>
+<button type="submit" class="btn btn-primary choice1 mr-2" value="r" id="p1choice">Rock</button>
+<button type="submit" class="btn btn-primary choice1 mr-2" value="p" id="p1choice">Paper</button>
+<button type="submit" class="btn btn-primary choice1" value="s" id="p1choice">Scissor</button>
+</div>
+<button type="submit" class="btn btn-primary p1btn">Submit</button>
+</form>
+-->
+            <button type="button" class="btn btn-primary pickP1">Player 1</button>
+        </div>
+
+        <!-- VS button -->
+        <div class="col-2 vs-box">
+            <button type="submit" class="btn btn-primary vs">VS</button>
+        </div>
+
+        <!--Player 2 -->
+        <div class="jumbotron col-5 Player2">
+            <!--
+<form class ="player-two">
+<div class="form-group">
+<lable for="player2">Player Two Name:</lable>
+<input type="text" class="form-control" id="player2">
+</div>
+
+<div class="form-group">
+<div>Pick Rock, Paper, or Scissors</div>
+<button type="submit" class="btn btn-primary choice2 mr-2" value="r" id="p2choice">Rock</button>
+<button type="submit" class="btn btn-primary choice2 mr-2" value="p" id="p2choice">Paper</button>
+<button type="submit" class="btn btn-primary choice2" value="s" id="p2choice">Scissor</button>
+</div>
+<button type="submit" class="btn btn-primary p2btn">Submit</button>
+</form>
+-->
+            <button type="button" class="btn btn-primary pickP2">Player 2</button>
+        </div>
+
+
+    </div>
+
+    <div class="row">
+        <!--Show data Player1 -->
+        <div class="data1 col-5"></div>
+        <div class="whowin col-2 h5"></div>
+        <!--Show data Player2 -->
+        <div class="data2 col-5"></div>
+    </div>
+
+    <!--Chat Box -->
+    <div class="jumbotron container text-display"></div>
+
+    <!--Popup chat -->
+    <button class="open-button" onclick="openForm()">Chat</button>
+
+    <div class="chat-popup" id="myForm">
+        <form class="form-container">
+            <h4>Chat</h4>
+
+            <label for="msg"><b>Message</b></label>
+            <textarea placeholder="Type message.." name="msg" id="message" required></textarea>
+
+            <button type="button" class="btn send">Send</button>
+            <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+    </div>
+
+
+
+
+    <!--Reset button -->
+    <div class="clear-box">
+        <button type="button" class="btn btn-primary mr-1 reset">Reset</button>
+        <button type="button" class="btn btn-primary ml-1 clear-chat">Clear Chat</button>
+    </div>
+
+    <!-- HTML end here -->
+
+    <script src="https://www.gstatic.com/firebasejs/5.8.6/firebase.js"></script>
+    <script type="text/javascript" src="assests/javascript/app.js"></script>
+
+
+
+</body>
+
+</html>
